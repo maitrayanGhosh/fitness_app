@@ -3,6 +3,7 @@
         <title>
             <%= name %>
         </title>
+        <link rel="stylesheet" href="/css/home.css">
     </head>
 
     <body>
@@ -12,8 +13,13 @@
             <ul>
                 <% for(let i of excercise_list) { %>
                 <li>
-                    <p> <%= i.weight %> </p>
-                    <p> <%= i.reps %> </p>
+                    <div>
+                        <p> <%= i.weight %> </p>
+                        <p> <%= i.reps %> </p>
+                    </div>
+                    <div>
+                        <a href="/delete-set/?weight=<%= i.weight %>">delete Set</a>
+                    </div>
                 </li>
                 <% } %>
             </ul>

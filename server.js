@@ -32,6 +32,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
+app.use(express.static('assets'))
 
 var excerciseList= [
     {
@@ -63,6 +64,19 @@ app.post('/create-set', (req,res)=>{
     // })
 
     excerciseList.push(req.body)
+
+    return res.redirect('back')
+})
+
+app.get('/delete-set',(req,res)=>{
+    let set = req.query.weight
+
+    let contactIndex = excerciseList.findIndex( contact => contact.weight == set )
+
+
+    if(contactIndex != -1 ){
+        excerciseList.splice(contactIndex,1)
+    }
 
     return res.redirect('back')
 })
