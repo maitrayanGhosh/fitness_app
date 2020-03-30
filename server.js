@@ -33,11 +33,42 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 
+var excerciseList= [
+    {
+        weight : "20",
+        reps : "12345678"
+    },
+    {
+        weight : "25",
+        reps : "435262313"
+    },
+    {
+        weight : "30",
+        reps : "321223"
+    }
+]
+
 app.get('/',checkAuthenicated ,(req,res)=>{
-    res.render('index.ejs' , { name : req.user.name })
+    res.render('index.ejs' , { 
+        name : req.user.name ,
+        excercise_list : excerciseList
+    })
 })
 
 
+app.post('/create-set', (req,res)=>{
+    // excerciseList.push({
+    //     weight:req.body.weight,
+    //     reps:req.body.reps
+    // })
+
+    excerciseList.push(req.body)
+
+    return res.redirect('back')
+})
+
+
+// authetencation part start
 app.get('/login', checkNotAuthenicated  ,(req,res)=>{
     res.render('login.ejs')
 })
@@ -67,32 +98,26 @@ app.post('/login'  ,checkNotAuthenicated , passport.authenticate('local' , {
     failureRedirect : '/login',
     failureFlash : true
 } ))
-
-
 function checkAuthenicated(req,res, next){
     if(req.isAuthenticated()){
         return next()
     }
-
     res.redirect('/login')
-
 }
-
-
 function checkNotAuthenicated(req,res,next){
     if(req.isAuthenticated()){
        return res.redirect('/')
     }
     next()
 }
-
 app.delete('/logout' , (req,res)=>{
     req.logOut()
     res.redirect('/')
 })
 
+// authentication part end
+
 
 app.listen(3000)
 
 
-// 25:36

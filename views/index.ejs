@@ -1,6 +1,40 @@
-<h1>
-    Cat <%= name %>
-</h1>
+<html>
+    <head>
+        <title>
+            <%= name %>
+        </title>
+    </head>
+
+    <body>
+        <h1>Excercise log</h1>
+
+        <div>
+            <ul>
+                <% for(let i of excercise_list) { %>
+                <li>
+                    <p> <%= i.weight %> </p>
+                    <p> <%= i.reps %> </p>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+
+
+        <form action="/create-set" method="POST">
+            <input type="number" name="weight" placeholder="Enter weight">
+            <input type="number" name="reps" placeholder="Enter reps">
+
+            <button type="submit">Add Set</button>
+        </form>
+
+
+    </body>
+
+</html>
+
+
+
+
 
 
 <form action="/logout?_method=DELETE" method="POST">
