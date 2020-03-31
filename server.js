@@ -16,6 +16,10 @@ initializePassport(passport,
     id => users.find(user=> user.id === id )
 )
 
+const db =require('./config/mongoose')
+const Workout = require('./models/workout')
+
+
 const app = express()
 
 
@@ -50,10 +54,21 @@ var excerciseList= [
 ]
 
 app.get('/',checkAuthenicated ,(req,res)=>{
-    res.render('index.ejs' , { 
-        name : req.user.name ,
-        excercise_list : excerciseList
+
+    Workout.find({},(err,workout)=>{
+        if(err){
+            console.log('error in fetching contact in db')
+            return
+        }
+
+        res.render('index.ejs' , { 
+            name : req.user.name ,
+            excercise_list : workout
+        })
+
     })
+
+    
 })
 
 
@@ -63,22 +78,39 @@ app.post('/create-set', (req,res)=>{
     //     reps:req.body.reps
     // })
 
-    excerciseList.push(req.body)
+    // excerciseList.push(req.body)
 
-    return res.redirect('back')
+    Workout.create({
+        weight : req.body.weight,
+        reps : req.body.reps
+    },(err,newSet)=>{
+        if(err){
+            console.log('error in creating set')
+            return 
+        }
+        console.log('*****' , newSet)
+        return res.redirect('back')
+    })
 })
 
 app.get('/delete-set',(req,res)=>{
-    let set = req.query.weight
+    let id = req.query.id
 
-    let contactIndex = excerciseList.findIndex( contact => contact.weight == set )
+    // find the contact in the database and delete the set
 
+    Workout.findByIdAndDelete(id,(err)=>{
+        if(err){
+            console.log('errror in deleting in db')
+            return
+        }
 
-    if(contactIndex != -1 ){
-        excerciseList.splice(contactIndex,1)
-    }
-
-    return res.redirect('back')
+        return res.redirect('back')
+    })
+    // let contactIndex = excerciseList.findIndex( contact => contact.weight == set )
+    // if(contactIndex != -1 ){
+    //     excerciseList.splice(contactIndex,1)
+    // }
+    // return res.redirect('back')
 })
 
 
