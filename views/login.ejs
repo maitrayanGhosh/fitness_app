@@ -1,10 +1,21 @@
-<h1>Login</h1>
+
+<html>
+
+<head>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+<h1>Login to Transform</h1>
 
 <%  if(messages.error)  { %>
 
 <%= messages.error %>
 
 <% } %>
+
+
+<link rel="stylesheet" href="/css/login.css">
 
 <form action="/login" method="POST">
 
@@ -14,13 +25,21 @@
         <input type="email" id="email" name="email" required>
     </div>
 
-    <div>
+    <div id="pass">
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required>
     </div>
 
-    <button type="submit">Login</button>
+    <button type="submit" id="login_but">Login</button>
 
 </form>
 
 <a href="/register">Register</a>
+
+<div id="nishant">
+    <img src="/images/maitrayan.jpg" height="300" width="450">
+</div>
+
+</body>
+
+</html>
