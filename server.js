@@ -18,6 +18,7 @@ initializePassport(passport,
 
 const db =require('./config/mongoose')
 const Workout = require('./models/workout')
+const Squat = require('./models/workout')
 
 
 const app = express()
@@ -71,6 +72,10 @@ app.get('/',checkAuthenicated ,(req,res)=>{
     
 })
 
+app.get('/calculator',checkAuthenicated,(req,res)=>{
+    res.render('calculator')
+})
+
 
 app.post('/create-set', (req,res)=>{
     // excerciseList.push({
@@ -118,6 +123,8 @@ app.get('/delete-set',(req,res)=>{
 app.get('/login', checkNotAuthenicated  ,(req,res)=>{
     res.render('login.ejs')
 })
+
+
 
 app.get('/register', checkNotAuthenicated ,(req,res)=>{
     res.render('register.ejs')

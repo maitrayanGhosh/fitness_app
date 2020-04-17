@@ -1,0 +1,79 @@
+<html>
+    <head>
+
+    </head>
+
+    <style type="text/css">
+    
+    fieldset{
+        width : 500px ; border-radius: 20px ; background: #DDD ; height :230px
+    }
+    legend{
+        background: #222; color: #EEE; padding:10px ; font-size: 1.5em; border-radius: 10px; letter-spacing: 3px; font-variant: small-caps;
+    }
+    label,input{
+        width : 200px ; margin :5px ; padding:3px ; float:left;
+    }
+
+    label {
+        font-weight: bold ; font-size:12pt ; font-family:Arial;
+    }
+
+    
+
+    </style>
+
+
+    <body style="background-image: url(2.jpg);">
+
+        
+
+        <h1>BMR Calcualtor</h1>
+        
+
+        <script type="text/javascript">
+
+            function calcBMR(){
+                var weight = parseFloat(document.bmrform.weight.value);
+
+                var height = parseFloat(document.bmrform.height.value);
+                var age = parseFloat(document.bmrform.age.value);
+                
+                var bmr = 66.47 + (13.75*weight) + (5.003*height) - (6.755*age);
+                
+                document.bmrform.bmr.value = Math.round(bmr*100)/100;
+
+            }
+        </script>
+
+
+
+        <div id="tdee">
+        <form method="post" action="#" name="bmrform">
+            <fieldset>
+                <legend>BMR Calulations</legend>
+                <label for=" ">Enter weight in KG</label>
+                <input type="text" id="weight" value="" size="20" placeholder="Enter weight in kg" name="weight" required>
+                <br>
+                <label for=" ">Enter weight in cms</label>
+                <input type="text" id="height" value="" size="20" placeholder="Enter height in cm" name="height" required>
+                <br>
+                <label for=" ">Enter weight in years</label>
+                <input type="text" id="age" value="" size="20" placeholder="Enter age in years" name="age" required>
+                <br>
+                    <input type="reset" value="reset">
+                    <input type="button" value="calcaulate BMR" onclick="calcBMR();" id="calc">
+                <br>
+                <label for="">BMR</label>
+                <input type="text" value="" size="20" placeholder="Result - BMR" name="bmr" id="bmr" readonly>
+
+            </fieldset>
+        </form>
+    </div>
+
+
+
+    </body>
+
+
+</html>
